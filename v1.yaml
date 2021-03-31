@@ -1,0 +1,125 @@
+version: v1
+kind: Repository
+components:
+  - name: azbi
+    type: docker
+    versions:
+      - version: "0.1.0"
+        latest: true
+        image: "docker.io/epiphanyplatform/azbi:0.1.0"
+        workdir: "/shared"
+        shared: "/shared"
+        commands:
+          - name: metadata
+            description: "meta"
+            command: metadata
+            args:
+              - --json
+          - name: init
+            description: "init"
+            command: init
+            args:
+              - "--vms_rsa=#Environment#{{.SshConfig.RsaKeyPair.Name}}"
+              - "--name=#Environment#{{.Name}}"
+          - name: plan
+            description: "plan"
+            command: plan
+            args:
+              - --debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: apply
+            description: "apply"
+            command: apply
+            args:
+              - --debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: plan-destroy
+            description: "plan destroy"
+            command: plan
+            args:
+              - --debug
+              - --destroy
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: destroy
+            description: "destroy"
+            command: destroy
+            args:
+              - --debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+  - name: azks
+    type: docker
+    versions:
+      - version: "0.1.0"
+        latest: true
+        image: "docker.io/epiphanyplatform/azks:0.1.0"
+        workdir: "/shared"
+        shared: "/shared"
+        commands:
+          - name: metadata
+            description: "meta"
+            command: metadata
+            args:
+              - --json
+          - name: init
+            description: "init"
+            command: init
+            args:
+              - "--vms_rsa=#Environment#{{.SshConfig.RsaKeyPair.Name}}"
+              - "--name=#Environment#{{.Name}}"
+          - name: plan
+            description: "plan"
+            command: plan
+            args:
+              - --loglevel=debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: apply
+            description: "apply"
+            command: apply
+            args:
+              - --loglevel=debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: plan-destroy
+            description: "plan destroy"
+            command: plan
+            args:
+              - --loglevel=debug
+              - --destroy
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
+          - name: destroy
+            description: "destroy"
+            command: destroy
+            args:
+              - --loglevel=debug
+            envs:
+              TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
+              SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
+              CLIENT_ID: "#Config#{{.AzureConfig.Credentials.AppID}}"
+              CLIENT_SECRET: "#Config#{{.AzureConfig.Credentials.Password}}"
