@@ -4,9 +4,9 @@ components:
   - name: azbi
     type: docker
     versions:
-      - version: "0.1.0"
+      - version: "dev"
         latest: true
-        image: "docker.io/epiphanyplatform/azbi:0.1.0"
+        image: "docker.io/epiphanyplatform/azbi:dev"
         workdir: "/shared"
         shared: "/shared"
         commands:
@@ -25,7 +25,7 @@ components:
             description: "plan"
             command: plan
             args:
-              - --debug
+              - --log-level=debug
             envs:
               TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
               SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
@@ -35,7 +35,7 @@ components:
             description: "apply"
             command: apply
             args:
-              - --debug
+              - --log-level=debug
             envs:
               TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
               SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
@@ -45,7 +45,7 @@ components:
             description: "plan destroy"
             command: plan
             args:
-              - --debug
+              - --log-level=debug
               - --destroy
             envs:
               TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
@@ -56,7 +56,7 @@ components:
             description: "destroy"
             command: destroy
             args:
-              - --debug
+              - --log-level=debug
             envs:
               TENANT_ID: "#Config#{{.AzureConfig.Credentials.Tenant}}"
               SUBSCRIPTION_ID: "#Config#{{.AzureConfig.Credentials.SubscriptionID}}"
@@ -65,9 +65,9 @@ components:
   - name: azks
     type: docker
     versions:
-      - version: "0.1.0"
+      - version: "dev"
         latest: true
-        image: "docker.io/epiphanyplatform/azks:0.1.0"
+        image: "docker.io/epiphanyplatform/azks:dev"
         workdir: "/shared"
         shared: "/shared"
         commands:
